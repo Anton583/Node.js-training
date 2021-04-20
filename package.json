@@ -1,0 +1,22 @@
+{
+  "name": "node_training",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test1.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Anton583/Node.js-training.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Anton583/Node.js-training/issues"
+  },
+  "homepage": "https://github.com/Anton583/Node.js-training#readme",
+  "devDependencies": {
+    "mocha": "^8.3.2"
+  }
+}

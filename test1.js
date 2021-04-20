@@ -16,7 +16,7 @@ const formReadRes = (readFileName) => (writeFileName) => (symbolToCalc) => {
         if (err)
             throw err
         else
-            writeFile(writeFileName, numOfSymbols(symbolToCalc)(data), (err) => {
+            writeFile(writeFileName, numOfSymbols(symbolToCalc)(data).toString(), (err) => {
                 if (err)
                     throw err
             })
@@ -75,7 +75,7 @@ const numVowels = str => {
 }
 
 
-const FormReadResultTest = () => {
+const formReadResultTest = () => {
     formReadRes('data.txt')('result.txt')("l")
     describe("formReadRes", () => {
         it("given 'data.txt' contains the same number of symbol 'l' as written in the final file", () => {
@@ -97,8 +97,7 @@ const FormReadResultTest = () => {
         })
     })
 }
-
-FormReadResultTest()
+formReadResultTest()
 
 
 
