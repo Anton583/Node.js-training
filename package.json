@@ -2,9 +2,10 @@
   "name": "node_training",
   "version": "1.0.0",
   "description": "",
-  "main": "test1.js",
+  "main": "test1.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc && mocha test1.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,9 @@
   },
   "homepage": "https://github.com/Anton583/Node.js-training#readme",
   "devDependencies": {
-    "mocha": "^8.3.2"
+    "@types/jest": "^26.0.23",
+    "@types/node": "^14.14.41",
+    "mocha": "^8.3.2",
+    "typescript": "^3.9.9"
   }
 }
