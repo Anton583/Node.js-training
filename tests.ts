@@ -10,16 +10,14 @@ describe("formReadRes", () => {
         functsFromMain.readFile('data.txt', 'utf8', (err: string, data: string) => {
             if (err) {
                 throw err
-            }
-            else {
+            } else {
                 // calculate number of symbol 'l' in text of the original file 
                 const resNumOfSymbs = functsFromMain.numOfSymbols("l")(data)
                 // read file with result of calculations 
                 functsFromMain.readFile('result.txt', 'utf8', (err: string, data: string) => {
                     if (err) {
                         throw err
-                    }
-                    else {
+                    } else {
                         // number of symbols to integer 
                         const numOfSymbEInFile = parseInt(data)
                         // check if number of 'l' symbol 

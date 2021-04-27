@@ -4,7 +4,7 @@ const { readFile, writeFile } = require("fs");
 // Curried version:
 // calculate number of particular symbol in string
 const numOfSymbols = (symbol: string) => (str: string) => Array
-    // array from given string
+    // array from a given string
     .from(str)
     // if element in array equals given symbol - increase number
     .reduce((acc, curr) => curr.toLowerCase() === symbol
@@ -15,13 +15,12 @@ const numOfSymbols = (symbol: string) => (str: string) => Array
 
 
 // read file, calculate number of appearences of particular symbol,
-// create new file put the number there
+// create new file, put the number there
 const formReadRes = (readFileName: string) => (writeFileName: string) => (symbolToCalc: string) => {
     readFile(readFileName, 'utf8', (err: string, data: string) => {
         if (err) {
             throw err
-        }
-        else {
+        } else {
             writeFile(writeFileName, numOfSymbols(symbolToCalc)(data).toString(), (err: string) => {
                 if (err) {
                     throw err
