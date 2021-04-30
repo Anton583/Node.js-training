@@ -5,7 +5,7 @@
   "main": "main.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc && mocha tests.js"
+    "start": "tsc && mocha build/tests.js"
   },
   "repository": {
     "type": "git",
