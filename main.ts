@@ -1,4 +1,6 @@
+export { }
 const { readFile, writeFile } = require("fs");
+
 
 // Creates clojure
 // Curried version:
@@ -16,7 +18,7 @@ const numOfSymbols = (symbol: string) => (str: string) => Array
 
 // read file, calculate number of appearences of particular symbol,
 // create new file, put the number there
-const formReadRes = (readFileName: string) => (writeFileName: string) => (symbolToCalc: string) => {
+const writeNumSymbolsInFileIntoFile = (readFileName: string, writeFileName: string, symbolToCalc: string) => {
     readFile(readFileName, 'utf8', (err: string, data: string) => {
         if (err) {
             throw err
@@ -41,11 +43,9 @@ const numVowels = (str: string) => {
     return res;
 }
 
-exports.formReadRes = formReadRes;
+exports.writeNumSymbolsInFileIntoFile = writeNumSymbolsInFileIntoFile;
 exports.numOfSymbols = numOfSymbols;
 exports.numVowels = numVowels;
-exports.readFile = readFile;
-
 
 
 

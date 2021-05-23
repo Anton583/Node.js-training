@@ -1,34 +1,49 @@
-const functsFromMain = require('./main');
+let functsFromMain = require('./main');
+const { readFile } = require('fs')
 const assert = require('assert');
+
+// read data.txt file
+readFile('data.txt', 'utf8', (err: string, data: string) => {
+    if (err) {
+        throw err
+    } else {
+        // find number of symbol 'l' in data.txt and pass value to function
+        getNumOfSymbInDataFile(functsFromMain.numOfSymbols("l")(data))
+    }
+})
+
+// number of symbol in data.txt file
+let numOfSymbInDataFile: number
+
+// get number of symbol in data.txt and assign to variable 
+const getNumOfSymbInDataFile = (numOfSymb: number) => {
+    numOfSymbInDataFile = numOfSymb
+}
+
 
 // test for formReadRes function
 describe("formReadRes", () => {
-    // execute function
-    functsFromMain.formReadRes('data.txt')('result.txt')("l")
-    it("given 'data.txt' contains the same number of symbol 'l' as written in the final file", () => {
-        // read original file 
-        functsFromMain.readFile('data.txt', 'utf8', (err: string, data: string) => {
-            if (err) {
-                throw err
-            } else {
-                // calculate number of symbol 'l' in text of the original file 
-                const resNumOfSymbs = functsFromMain.numOfSymbols("l")(data)
-                // read file with result of calculations 
-                functsFromMain.readFile('result.txt', 'utf8', (err: string, data: string) => {
-                    if (err) {
-                        throw err
-                    } else {
-                        // number of symbols to integer 
-                        const numOfSymbEInFile = parseInt(data)
-                        // check if number of 'l' symbol 
-                        // is the same as written in the result file
-                        assert.strictEqual(resNumOfSymbs, numOfSymbEInFile)
-                    }
-                })
-            }
-        })
+    it("Given number of 'l' symbol in data.txt file, outputs 569984 in the result.txt file", () => {
+        // execute function
+        functsFromMain.writeNumSymbolsInFileIntoFile('data.txt', 'result.txt', "l")
+        // wait 1 sec for result.txt file to be created
+        setTimeout(function () {
+            // read result.txt file
+            readFile('result.txt', 'utf8', (err: string, data: string) => {
+                if (err) {
+                    throw err
+                } else {
+                    // number of symbols to integer 
+                    const numOfSymbInResFile = parseInt(data)
+                    // check if number of symbol 'l' in result.txt file 
+                    // is equal to number of 'l' symbol in data.txt
+                    assert.strictEqual(numOfSymbInResFile, numOfSymbInDataFile)
+                }
+            })
+        }, 1000)
     })
 })
+
 
 
 // test for numVowels function
