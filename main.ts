@@ -1,9 +1,6 @@
 export { }
 const { readFile, writeFile } = require("fs");
 
-
-// Creates clojure
-// Curried version:
 // calculate number of particular symbol in string
 const numOfSymbols = (symbol: string) => (str: string) => Array
     // array from a given string
