@@ -1,51 +1,25 @@
+
 const functsFromMain = require('./main');
 const { readFile } = require('fs')
 const assert = require('assert');
 const { writeNumSymbolsInFileIntoFile, numOfSymbols, numVowels } = functsFromMain
 
-// read data.txt file
-readFile('data.txt', 'utf8', (err: string, data: string) => {
-    if (err) {
-        throw err
-    } else {
-        // find number of symbol 'l' in data.txt and pass value to function
-        getNumOfSymbInDataFile(numOfSymbols("l")(data))
-    }
-})
-
-// number of symbol in data.txt file
-let numOfSymbInDataFile: number
-
-// get number of symbol in data.txt and assign to variable 
-const getNumOfSymbInDataFile = (numOfSymb: number) => {
-    numOfSymbInDataFile = numOfSymb
-}
 
 
 // test for writeNumSymbolsInFileIntoFile function
-describe("formReadRes", () => {
-    it("Given number of 'l' symbol in data.txt file, outputs 569984 in the result.txt file", () => {
+describe("writeNumSymbolsInFileIntoFile", () => {
+    it("Should work without errors", (done) => {
         // execute function
-        writeNumSymbolsInFileIntoFile('data.txt', 'result.txt', "l")
-        // wait 1 sec for result.txt file to be created
-        setTimeout(function () {
-            // read result.txt file
-            readFile('result.txt', 'utf8', (err: string, data: string) => {
-                if (err) {
-                    throw err
-                } else {
-                    // number of symbols to integer 
-                    const numOfSymbInResFile = parseInt(data)
-                    // check if number of symbol 'l' in result.txt file 
-                    // is equal to number of 'l' symbol in data.txt
-                    assert.strictEqual(numOfSymbInResFile, numOfSymbInDataFile)
-                }
-            })
-        }, 1000)
+        writeNumSymbolsInFileIntoFile('data.txt', 'result.txt', "l", (err: string) => {
+            if (err) {
+                done(err)
+            } else {
+                done()
+            }
+        })
+
     })
 })
-
-
 
 // test for numVowels function
 describe("numVowels", () => {

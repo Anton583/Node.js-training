@@ -15,16 +15,12 @@ const numOfSymbols = (symbol: string) => (str: string) => Array
 
 // read file, calculate number of appearences of particular symbol,
 // create new file, put the number there
-const writeNumSymbolsInFileIntoFile = (readFileName: string, writeFileName: string, symbolToCalc: string) => {
+const writeNumSymbolsInFileIntoFile = (readFileName: string, writeFileName: string, symbolToCalc: string, callBack: (err: string) => void) => {
     readFile(readFileName, 'utf8', (err: string, data: string) => {
         if (err) {
             throw err
         } else {
-            writeFile(writeFileName, numOfSymbols(symbolToCalc)(data).toString(), (err: string) => {
-                if (err) {
-                    throw err
-                }
-            })
+            writeFile(writeFileName, numOfSymbols(symbolToCalc)(data).toString(), callBack)
         }
     })
 }
