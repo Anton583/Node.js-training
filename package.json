@@ -1,0 +1,26 @@
+{
+  "name": "node_training",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "dependencies": {
+    "typescript": "^3.9.9"
+  },
+  "devDependencies": {
+    "mocha": "^8.3.2"
+  },
+  "scripts": {
+    "test": "mocha",
+    "start": "tsc && mocha build/tests.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Anton583/Node.js-training.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Anton583/Node.js-training/issues"
+  },
+  "homepage": "https://github.com/Anton583/Node.js-training#readme"
+}
