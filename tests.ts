@@ -1,4 +1,4 @@
-
+const { expect } = require('chai');
 const functsFromMain = require('./main');
 const { readFile } = require('fs')
 const assert = require('assert');
@@ -18,7 +18,73 @@ describe("writeNumSymbolsInFileIntoFile", () => {
             }
         })
     })
+    it("Given write number of symbol 'l' in 'data.txt' to 'result.txt', number in result file should be correct", (done) => {
+        // read 'data.txt' and calculate number of symbol 'l'
+        readFile('data.txt', 'utf8', (err: string, data: string) => {
+            if (err) {
+                throw err
+            }
+            else {
+                numOfSymbFromDataFile = numOfSymbols('l')(data)
+            }
+        })
+        // number of symbol 'l' in 'data.txt'
+        let numOfSymbFromDataFile: number
+
+        // callback for writeNumSymbolsInFileIntoFile
+        const callBack = (err: string, data: string) => {
+            if (err) {
+                done(err)
+            } else {
+                // get data from 'result.txt' and compare to that in 'data.txt'
+                const numOfSymbInResFile = parseInt(data)
+                assert.strictEqual(numOfSymbInResFile, numOfSymbFromDataFile)
+                done()
+            }
+        }
+        // test function writeNumSymbolsInFileIntoFile by calling it with callBack
+        writeNumSymbolsInFileIntoFile('data.txt', 'result.txt', "l", (err: string) => {
+            if (err) {
+                throw err
+            } else {
+                readFile('result.txt', 'utf8', callBack)
+            }
+        })
+    })
+
+    it("Given empty file writes '0' to 'result.txt'", (done) => {
+        // callback for writeNumSymbolsInFileIntoFile
+        const callBack = (err: string, data: string) => {
+            if (err) {
+                done(err)
+            } else {
+                // get data from 'result.txt' and compare to that in 'data.txt'
+                const numOfSymbInResFile = parseInt(data)
+                assert.strictEqual(numOfSymbInResFile, 0)
+                done()
+            }
+        }
+        writeNumSymbolsInFileIntoFile('empty.txt', 'result.txt', "l", (err: string) => {
+            if (err) {
+                throw err
+            } else {
+                readFile('result.txt', 'utf8', callBack)
+            }
+        })
+    })
+    it("Given non-existing file, throws error", (done) => {
+        // callback for function 
+        const callBack = (err: string) => {
+            // if error present, test is successful
+            if (err) {
+                console.log("I see error, test is ok!")
+                done()
+            }
+        }
+        writeNumSymbolsInFileIntoFile('doesntExist.txt', 'result.txt', "l", callBack)
+    })
 })
+
 
 // test for numVowels function
 describe("numVowels", () => {

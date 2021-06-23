@@ -18,7 +18,7 @@ const numOfSymbols = (symbol: string) => (str: string) => Array
 const writeNumSymbolsInFileIntoFile = (readFileName: string, writeFileName: string, symbolToCalc: string, callBack: (err: string) => void) => {
     readFile(readFileName, 'utf8', (err: string, data: string) => {
         if (err) {
-            throw err
+            callBack(err)
         } else {
             writeFile(writeFileName, numOfSymbols(symbolToCalc)(data).toString(), callBack)
         }
