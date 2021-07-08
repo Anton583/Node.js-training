@@ -1,4 +1,6 @@
-const { expect } = require('chai');
+import { setTimeout } from "timers";
+
+
 const functsFromMain = require('./main');
 const { readFile } = require('fs')
 const assert = require('assert');
@@ -35,39 +37,37 @@ describe("writeNumSymbolsInFileIntoFile", () => {
             }
         }
 
+        const testFunct = () =>
+            // test function writeNumSymbolsInFileIntoFile by calling it with callBack
+            writeNumSymbolsInFileIntoFile('data.txt', 'result.txt', "l", (err: string) => {
+                if (err) {
+                    throw err
+                } else {
+                    readFile('result.txt', 'utf8', callBack)
+                }
+            })
+
         // read 'data.txt' and calculate number of symbol 'l'
-        const readDataFile = readFile('data.txt', 'utf8', (err: string, data: string) => {
+        readFile('data.txt', 'utf8', (err: string, data: string) => {
             if (err) {
                 throw err
             }
             else {
                 numOfSymbFromDataFile = numOfSymbols('l')(data)
+                // if data is ready, call function 
+                if (typeof (numOfSymbFromDataFile) === "number") {
+                    testFunct()
+                }
+                // else wait for data and call function
+                else {
+                    setTimeout(testFunct(), 1000)
+                }
+
             }
         })
 
-        // test function writeNumSymbolsInFileIntoFile by calling it with callBack
-        const testFunct = writeNumSymbolsInFileIntoFile('data.txt', 'result.txt', "l", (err: string) => {
-            if (err) {
-                throw err
-            } else {
-                readFile('result.txt', 'utf8', callBack)
-            }
-        })
-        // array of functions to be executed in sequence
-        // index 0 - readFile, index 1 - test function after getting data from readFile
-        let functs = [readDataFile, testFunct]
 
-        // chainFuncts recursively executes functions from array 'functs' 
-        // one after another, depending on their place in the array
-        const chainFuncts = (fn: any) => {
-            // if function present in the array, call recursion
-            if (fn) {
-                // call function from the array with next function as callback
-                fn(() => chainFuncts(functs.shift()))
-            }
-        }
-        // start chaining with first element in the array
-        chainFuncts(functs.shift())
+
     })
 
     it("Given empty file writes '0' to 'result.txt'", (done) => {
