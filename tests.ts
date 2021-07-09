@@ -1,6 +1,3 @@
-import { setTimeout } from "timers";
-
-
 const functsFromMain = require('./main');
 const { readFile } = require('fs')
 const assert = require('assert');
@@ -20,33 +17,9 @@ describe("writeNumSymbolsInFileIntoFile", () => {
             }
         })
     })
+
+
     it("Given write number of symbol 'l' in 'data.txt' to 'result.txt', number in result file should be correct", (done) => {
-
-        // number of symbol 'l' in 'data.txt'
-        let numOfSymbFromDataFile: number
-
-        // callback for writeNumSymbolsInFileIntoFile
-        const callBack = (err: string, data: string) => {
-            if (err) {
-                done(err)
-            } else {
-                // get data from 'result.txt' and compare to that in 'data.txt'
-                const numOfSymbInResFile = parseInt(data)
-                assert.strictEqual(numOfSymbInResFile, numOfSymbFromDataFile)
-                done()
-            }
-        }
-
-        // test function writeNumSymbolsInFileIntoFile by calling it with callBack
-        const testWriteNumFunct = () => {
-            writeNumSymbolsInFileIntoFile('data.txt', 'result.txt', "l", (err: string) => {
-                if (err) {
-                    throw err
-                } else {
-                    readFile('result.txt', 'utf8', callBack)
-                }
-            })
-        }
 
         // read 'data.txt' and calculate number of symbol 'l'
         readFile('data.txt', 'utf8', (err: string, data: string) => {
@@ -54,11 +27,37 @@ describe("writeNumSymbolsInFileIntoFile", () => {
                 throw err
             }
             else {
-                numOfSymbFromDataFile = numOfSymbols('l')(data)
-                // call test function after file is read
-                testWriteNumFunct()
+
+                // number of symbol 'l' in 'data.txt' file
+                const numOfSymbFromDataFile = numOfSymbols('l')(data)
+
+                // callBack for writeNumSymbolsInFileIntoFile
+                const callBackForTestFunct = (err: string, data: string) => {
+                    if (err) {
+                        done(err)
+                    } else {
+                        // get data from 'result.txt' and compare to that in 'data.txt'
+                        const numOfSymbInResFile = parseInt(data)
+                        assert.strictEqual(numOfSymbInResFile, numOfSymbFromDataFile)
+                        done()
+                    }
+                }
+
+                // call test function with callBack after file is read 
+                testWriteNumFunct(callBackForTestFunct)
             }
         })
+
+        // test function writeNumSymbolsInFileIntoFile by calling it with callBack
+        const testWriteNumFunct = (callBackForTestFunct: (err: string, data: string) => void) => {
+            writeNumSymbolsInFileIntoFile('data.txt', 'result.txt', "l", (err: string) => {
+                if (err) {
+                    throw err
+                } else {
+                    readFile('result.txt', 'utf8', callBackForTestFunct)
+                }
+            })
+        }
     })
 
     it("Given empty file writes '0' to 'result.txt'", (done) => {
