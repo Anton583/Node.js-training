@@ -21,16 +21,6 @@ describe("writeNumSymbolsInFileIntoFile", () => {
 
     it("Given write number of symbol 'l' in 'data.txt' to 'result.txt', number in result file should be correct", (done) => {
 
-        // test function writeNumSymbolsInFileIntoFile by calling it with callBack
-        const testWriteNumFunct = (callBackForTestFunct: (err: string, data: string) => void) => {
-            writeNumSymbolsInFileIntoFile('data.txt', 'result.txt', "l", (err: string) => {
-                if (err) {
-                    throw err
-                } else {
-                    readFile('result.txt', 'utf8', callBackForTestFunct)
-                }
-            })
-        }
 
         // read 'data.txt' and calculate number of symbol 'l'
         readFile('data.txt', 'utf8', (err: string, data: string) => {
@@ -41,6 +31,16 @@ describe("writeNumSymbolsInFileIntoFile", () => {
 
                 // number of symbol 'l' in 'data.txt' file
                 const numOfSymbFromDataFile = numOfSymbols('l')(data)
+
+                // test function writeNumSymbolsInFileIntoFile by calling it with callBack
+                writeNumSymbolsInFileIntoFile('data.txt', 'result.txt', "l", (err: string) => {
+                    if (err) {
+                        throw err
+                    } else {
+                        readFile('result.txt', 'utf8', callBackForTestFunct)
+                    }
+                })
+
 
                 // callBack for writeNumSymbolsInFileIntoFile
                 const callBackForTestFunct = (err: string, data: string) => {
@@ -53,9 +53,6 @@ describe("writeNumSymbolsInFileIntoFile", () => {
                         done()
                     }
                 }
-
-                // call test function with callBack after file is read 
-                testWriteNumFunct(callBackForTestFunct)
             }
         })
 
