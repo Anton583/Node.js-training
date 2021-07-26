@@ -37,57 +37,50 @@ describe("writeNumSymbolsInFileIntoFile", () => {
                     if (err) {
                         throw err
                     } else {
-                        readFile('result.txt', 'utf8', callBackForTestFunct)
+                        readFile('result.txt', 'utf8', (err: string, dataResFile: string) => {
+                            if (err) {
+                                done(err)
+                            } else {
+                                // get data from 'result.txt' and compare to that in 'data.txt'
+                                const numOfSymbInResFile = parseInt(dataResFile)
+                                assert.strictEqual(numOfSymbInResFile, numOfSymbFromDataFile)
+                                done()
+                            }
+                        })
                     }
                 })
-
-
-                // callBack for writeNumSymbolsInFileIntoFile
-                const callBackForTestFunct = (err: string, data: string) => {
-                    if (err) {
-                        done(err)
-                    } else {
-                        // get data from 'result.txt' and compare to that in 'data.txt'
-                        const numOfSymbInResFile = parseInt(data)
-                        assert.strictEqual(numOfSymbInResFile, numOfSymbFromDataFile)
-                        done()
-                    }
-                }
             }
         })
 
     })
 
     it("Given empty file writes '0' to 'result.txt'", (done) => {
-        // callback for writeNumSymbolsInFileIntoFile
-        const callBack = (err: string, data: string) => {
-            if (err) {
-                done(err)
-            } else {
-                // get data from 'result.txt' and compare to that in 'data.txt'
-                const numOfSymbInResFile = parseInt(data)
-                assert.strictEqual(numOfSymbInResFile, 0)
-                done()
-            }
-        }
         writeNumSymbolsInFileIntoFile('empty.txt', 'result.txt', "l", (err: string) => {
             if (err) {
                 throw err
             } else {
-                readFile('result.txt', 'utf8', callBack)
+                readFile('result.txt', 'utf8', (err: string, data: string) => {
+                    if (err) {
+                        done(err)
+                    } else {
+                        // get data from 'result.txt' and compare to that in 'data.txt'
+                        const numOfSymbInResFile = parseInt(data)
+                        assert.strictEqual(numOfSymbInResFile, 0)
+                        done()
+                    }
+                })
             }
         })
     })
     it("Given non-existing file, throws error", (done) => {
-        // callback for function 
-        const callBack = (err: string) => {
+
+        writeNumSymbolsInFileIntoFile('doesntExist.txt', 'result.txt', "l", (err: string) => {
             // if error present, test is successful
             if (err) {
                 console.log("I see error, test is ok!")
                 done()
             }
-        }
-        writeNumSymbolsInFileIntoFile('doesntExist.txt', 'result.txt', "l", callBack)
+        })
     })
 })
 
