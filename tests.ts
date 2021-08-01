@@ -20,15 +20,11 @@ describe("writeNumSymbolsInFileIntoFile", () => {
 
 
     it("Given write number of symbol 'l' in 'data.txt' to 'result.txt', number in result file should be correct", (done) => {
-
-
         // read 'data.txt' and calculate number of symbol 'l'
         readFile('data.txt', 'utf8', (err: string, data: string) => {
             if (err) {
-                throw err
-            }
-            else {
-
+                done(err)
+            } else {
                 // number of symbol 'l' in 'data.txt' file
                 const numOfSymbFromDataFile = numOfSymbols('l')(data)
 
